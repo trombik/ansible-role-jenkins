@@ -5,6 +5,15 @@
     insertafter: '^JENKINS_ARGS='
     line: 'JENKINS_ARGS="$JENKINS_ARGS --prefix={{ jenkins_url_prefix }}"'
   register: jenkins_init_config
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: Ensure URL prefix is present in Jenkins config.
+  lineinfile:
+    dest: "{{ jenkins_init_file }}"
+    insertafter: '^jenkins_args='
+    line: 'jenkins_args="$jenkins_args --prefix={{ jenkins_url_prefix }} --httpPort {{ jenkins_http_port }}"'
+  register: jenkins_init_config
+  when: ansible_os_family == 'FreeBSD'
 
 - name: Restart Jenkins if config changed.
   service: name=jenkins state=restarted

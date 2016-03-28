@@ -9,3 +9,5 @@ jenkins_plugins:
   - sonar
   - ssh
 jenkins_url_prefix: ""
+jenkins_plugins_dir: /var/lib/jenkins/plugins
+jenkins_updates_dir: /var/lib/jenkins/updates

@@ -6,6 +6,16 @@
     regexp: '^JENKINS_ARGS\+=" --prefix='
     line: 'JENKINS_ARGS+=" --prefix={{ jenkins_url_prefix }}"'
   register: jenkins_init_config
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
+
+- name: Ensure URL prefix is present in Jenkins config.
+  lineinfile:
+    dest: "{{ jenkins_init_file }}"
+    insertafter: '^JENKINS_ARGS='
+    regexp: '^jenkins_args\=" --prefix='
+    line: 'jenkins_args=" --prefix={{ jenkins_url_prefix }} --httpPort={{ jenkins_http_port }}"'
+  register: jenkins_init_config
+  when: ansible_os_family == 'FreeBSD'
 
 - name: Immediately restart Jenkins on init config changes.
   service: name=jenkins state=restarted
@@ -18,6 +28,7 @@
     regexp: '^{{ jenkins_http_port_param }}='
     line: '{{ jenkins_http_port_param }}={{ jenkins_http_port }}'
   register: jenkins_http_config
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'
 
 - name: Immediately restart Jenkins on http config changes.
   service: name=jenkins state=restarted

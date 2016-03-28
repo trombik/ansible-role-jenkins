@@ -1,0 +1,6 @@
+---
+- name: Ensure dependencies are installed.
+  pkgng: pkg=curl state=present
+
+- name: Ensure Jenkins is installed.
+  pkgng: pkg=jenkins state=present
