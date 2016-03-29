@@ -2,8 +2,3 @@
 __jenkins_repo_url: ""
 __jenkins_repo_key_url: ""
 jenkins_init_file: /etc/rc.conf
-jenkins_http_port: 8181
-jenkins_url_prefix: /jenkins
-jenkins_jar_location: /usr/local/bin/jenkins-cli.jar
-jenkins_plugins_dir: /usr/local/jenkins/plugins
-jenkins_updates_dir: /usr/local/jenkins/updates
